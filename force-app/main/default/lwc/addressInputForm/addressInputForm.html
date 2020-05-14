@@ -1,0 +1,111 @@
+<!--
+  @File Name          : addressInputForm.html
+  @Description        :
+  @Author             : nigel.hughes@sage.com
+  @Group              :
+  @Last Modified By   : nigel.hughes@sage.com
+  @Last Modified On   : 13/05/2020, 14:54:58
+  @Modification Log   :
+  Ver       Date            Author      		    Modification
+  1.0    06/05/2020   nigel.hughes@sage.com     Initial Version
+-->
+<template>
+	<lightning-layout>
+		<lightning-layout-item padding="around-small">
+			<lightning-button-icon icon-name="action:edit" alternative-text="Edit" onclick={handleEdit}>
+			</lightning-button-icon>
+			<lightning-button-icon icon-name="action:refresh" alternative-text="Refresh" onclick={handleRefresh}>
+			</lightning-button-icon>
+		</lightning-layout-item>
+	</lightning-layout>
+	<!-- Read Only -->
+	<template if:true={hasData}>
+		<template if:true={readOnly}>
+			<lightning-layout>
+				<lightning-layout-item padding="around-small">
+					<h1 class="slds-text-heading_small">Address</h1>
+				</lightning-layout-item>
+				<lightning-layout-item padding="around-small">
+					<lightning-formatted-address
+						street={street}
+						city={addressData.city}
+						country={addressData.country}
+						province={addressData.region}
+						postal-code={addressData.postalcode}
+						disabled
+					></lightning-formatted-address>
+				</lightning-layout-item>
+			</lightning-layout>
+		</template>
+		<template if:false={readOnly}>
+			<lightning-record-edit-form record-id={recordId} object-api-name={objectApiName}>
+				<lightning-layout>
+					<lightning-layout-item padding="horizontal-small">
+						<!--
+					<c-auto-complete-combo
+						name="countrycombo"
+						label="Country"
+						required
+						values={getCountryOptions}
+					></c-auto-complete-combo>
+					-->
+						<lightning-combobox
+							data-id="country"
+							label="Country"
+							options={countryOptions}
+							value={addressData.country}
+							onchange={handleChange}
+						>
+						</lightning-combobox>
+					</lightning-layout-item>
+				</lightning-layout>
+				<lightning-layout>
+					<lightning-layout-item padding="horizontal-small" flexibility="auto">
+						<lightning-input data-id="address1" label="Address 1" value={addressData.address1}> </lightning-input>
+					</lightning-layout-item>
+				</lightning-layout>
+				<lightning-layout>
+					<lightning-layout-item padding="horizontal-small" flexibility="auto">
+						<lightning-input data-id="address2" label="Address 2" value={addressData.address2}> </lightning-input>
+					</lightning-layout-item>
+				</lightning-layout>
+				<lightning-layout>
+					<lightning-layout-item padding="horizontal-small" flexibility="auto">
+						<lightning-input data-id="address3" label="Address 3" value={addressData.address3}> </lightning-input>
+					</lightning-layout-item>
+				</lightning-layout>
+				<lightning-layout>
+					<lightning-layout-item padding="horizontal-small" size="8">
+						<lightning-input data-id="city" label="Address City" value={addressData.city}> </lightning-input>
+					</lightning-layout-item>
+					<template if:true={hasProvince}>
+						<lightning-layout-item padding="horizontal-small" size="4">
+							<lightning-combobox
+								data-id="region"
+								label="Address Region"
+								value={addressData.region}
+								options={provinceOptions}
+							>
+							</lightning-combobox>
+						</lightning-layout-item>
+					</template>
+					<template if:false={hasProvince}>
+						<lightning-layout-item padding="horizontal-small" size="4">
+							<lightning-input data-id="city" label="Address Region" value={addressData.region}>
+							</lightning-input>
+						</lightning-layout-item>
+					</template>
+				</lightning-layout>
+				<lightning-layout>
+					<lightning-layout-item padding="horizontal-small" flexibility="auto">
+						<lightning-input data-id="postalcode" label="Address Postal Code" value={addressData.postalcode}>
+						</lightning-input>
+					</lightning-layout-item>
+				</lightning-layout>
+			</lightning-record-edit-form>
+		</template>
+	</template>
+	<template if:false={hasData}>
+		<h1 class="slds-text-heading_small">Loading</h1>
+	</template>
+</template>

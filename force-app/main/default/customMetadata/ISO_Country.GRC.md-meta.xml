@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Greece</label>
+    <protected>false</protected>
+    <values>
+        <field>Dial__c</field>
+        <value xsi:type="xsd:string">30</value>
+    </values>
+    <values>
+        <field>ISO_Alpha_2__c</field>
+        <value xsi:type="xsd:string">GR</value>
+    </values>
+    <values>
+        <field>ISO_Alpha_3__c</field>
+        <value xsi:type="xsd:string">GRC</value>
+    </values>
+    <values>
+        <field>ISO_Currency_Code__c</field>
+        <value xsi:type="xsd:string">EUR</value>
+    </values>
+    <values>
+        <field>ISO_Currency_Name__c</field>
+        <value xsi:type="xsd:string">Euro</value>
+    </values>
+    <values>
+        <field>ISO_Numeric__c</field>
+        <value xsi:type="xsd:string">300</value>
+    </values>
+    <values>
+        <field>Official_Name_en__c</field>
+        <value xsi:type="xsd:string">Greece</value>
+    </values>
+</CustomMetadata>

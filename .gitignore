@@ -41,3 +41,4 @@ $RECYCLE.BIN/
 .prettierrc
 .history/
 force-app/main/default/lwc/.eslintrc.json
+SFDX_CMD.txt

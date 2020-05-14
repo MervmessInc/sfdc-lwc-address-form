@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Taiwan</label>
+    <protected>false</protected>
+    <values>
+        <field>Dial__c</field>
+        <value xsi:type="xsd:string">886</value>
+    </values>
+    <values>
+        <field>ISO_Alpha_2__c</field>
+        <value xsi:type="xsd:string">TW</value>
+    </values>
+    <values>
+        <field>ISO_Alpha_3__c</field>
+        <value xsi:type="xsd:string">TWN</value>
+    </values>
+    <values>
+        <field>ISO_Currency_Code__c</field>
+        <value xsi:type="xsd:string">TWD</value>
+    </values>
+    <values>
+        <field>ISO_Currency_Name__c</field>
+        <value xsi:type="xsd:string">New Taiwan dollar</value>
+    </values>
+    <values>
+        <field>ISO_Numeric__c</field>
+        <value xsi:type="xsd:string">158</value>
+    </values>
+    <values>
+        <field>Official_Name_en__c</field>
+        <value xsi:type="xsd:string">&quot;Taiwan, Province of China&quot;</value>
+    </values>
+</CustomMetadata>

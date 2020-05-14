@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Cambodia</label>
+    <protected>false</protected>
+    <values>
+        <field>Dial__c</field>
+        <value xsi:type="xsd:string">855</value>
+    </values>
+    <values>
+        <field>ISO_Alpha_2__c</field>
+        <value xsi:type="xsd:string">KH</value>
+    </values>
+    <values>
+        <field>ISO_Alpha_3__c</field>
+        <value xsi:type="xsd:string">KHM</value>
+    </values>
+    <values>
+        <field>ISO_Currency_Code__c</field>
+        <value xsi:type="xsd:string">KHR</value>
+    </values>
+    <values>
+        <field>ISO_Currency_Name__c</field>
+        <value xsi:type="xsd:string">Riel</value>
+    </values>
+    <values>
+        <field>ISO_Numeric__c</field>
+        <value xsi:type="xsd:string">116</value>
+    </values>
+    <values>
+        <field>Official_Name_en__c</field>
+        <value xsi:type="xsd:string">Cambodia</value>
+    </values>
+</CustomMetadata>
