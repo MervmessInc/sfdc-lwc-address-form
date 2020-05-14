@@ -1,0 +1,28 @@
+<!--
+  @File Name          : editAccount.cmp
+  @Description        : 
+  @Author             : Nigel Hughes
+  @Group              : 
+  @Last Modified By   : Nigel Hughes
+  @Last Modified On   : 19/05/2020, 11:26:50
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    19/05/2020   Nigel Hughes     Initial Version
+-->
+<aura:component implements="lightning:actionOverride, force:hasRecordId, force:hasSObjectName">
+    <aura:attribute name="accountRecord" type="Object"/>
+    <aura:attribute name="recordLoadError" type="String"/>
+
+    <force:recordData aura:id="recordLoader"
+    recordId="{!v.recordId}"
+    fields="Name,Description,Phone,Industry"
+    targetFields="{!v.accountRecord}"
+    targetError="{!v.recordLoadError}"
+    />
+    
+    <div> 
+        <lightning:card iconName="standard:account" title="{!v.accountRecord.Name}" >
+            <c:addressInputForm recordId="{!v.recordId}" objectApiName="{!v.sObjectName}"></c:addressInputForm> 
+        </lightning:card>
+    </div>
+</aura:component>	

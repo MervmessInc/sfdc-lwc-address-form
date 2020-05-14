@@ -7,33 +7,44 @@ import getCountryOptions from "@salesforce/apex/AddressInputFormController.getCo
 export default class AddressInputForm extends LightningElement {
 	@api recordId;
 	@api objectApiName;
-	@track addressData;
 	@track error;
+
+	@track addressData = {
+		address1 : '',
+		city : '',
+		country : '',
+		countryCode : '',
+		postalcode : '',
+		region : '',
+		regionCode : ''
+	};
 
 	provinceOptions = [];
 	countryOptions = [];
 	hasData = false;
 	hasProvince = false;
-	street;
 	_country;
 	readOnly = true;
+	
+	// initialize component
+	connectedCallback() {
+		this.getCountryOptions;
+	}
 
 	@wire(getAddressData, {objectType: "$objectApiName", objectId: "$recordId"})
 	apexAddressData({data, error}) {
 		if (data) {
 			this.hasData = true;
-			this.addressData = data;
+			this.addressData.address1 = data.address1;
+			this.addressData.city = data.city;
+			this.addressData.country = data.country;
+			this.addressData.countryCode = data.countryCode;
+			this.addressData.postalcode = data.postalcode;
+			this.addressData.region = data.region;
+			this.addressData.regionCode = data.regionCode;
 			console.log(JSON.stringify(this.addressData));
-			this.street = this.addressData.address1;
-			if (this.addressData.address2) {
-				street = street + "\n" + this.addressData.address2;
-			}
-			if (this.addressData.address3) {
-				street = street + "\n" + this.addressData.address3;
-			}
-			this._country = this.addressData.country;
+			this._country = this.addressData.countryCode;
 			this.getProvinceOptions;
-			this.getCountryOptions;
 		} else if (error) {
 			this.error = error;
 			this.data = undefined;
@@ -59,7 +70,6 @@ export default class AddressInputForm extends LightningElement {
 					this.provinceOptions.push({value: ele.value, label: ele.label});
 					this.hasProvince = true;
 				});
-				//console.log(JSON.stringify(this.provinceOptions));
 			})
 			.catch(error => {
 				this.error = error;
@@ -86,7 +96,6 @@ export default class AddressInputForm extends LightningElement {
 				result.forEach(ele => {
 					this.countryOptions.push({value: ele.value, label: ele.label});
 				});
-				//console.log(JSON.stringify(this.countryOptions));
 			})
 			.catch(error => {
 				this.error = error;
@@ -105,14 +114,43 @@ export default class AddressInputForm extends LightningElement {
 		return true;
 	}
 
-	handleChange(event) {
-		//console.log("Select Event");
-		//console.log(JSON.stringify(event.detail));
-		this._country = event.detail.value;
-		this.getProvinceOptions;
-	}
-
 	handleEdit() {
 		this.readOnly = this.readOnly === true ? false : true;
 	}
+
+	handleSave() {
+		console.log(JSON.stringify(this.addressData));
+	}
+
+	countryChange(event) {
+		this._country = event.detail.value;
+		this.addressData.countryCode = this._country;
+		let countryData = this.countryOptions.find(o => o.value === this._country);
+		this.addressData.country = countryData.label;
+		this.getProvinceOptions;
+	}
+
+	address1Change(event) {
+		this.addressData.address1 = event.detail.value;
+	}
+
+	cityChange(event) {
+		this.addressData.city = event.detail.value;
+	}
+
+	regioncodeChange(event) {
+		let rgCode = event.detail.value;
+		this.addressData.regionCode = rgCode;
+		let regionData = this.provinceOptions.find(o => o.value === rgCode);
+		this.addressData.region = regionData.label;
+	}
+
+	regionChange(event) {
+		this.addressData.region = event.detail.value;
+	}
+
+	postalcodeChange(event) {
+		this.addressData.region = event.detail.value;
+	}
+
 }

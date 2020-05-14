@@ -1,6 +1,20 @@
+/**
+ * @File Name          : account.soql
+ * @Description        : 
+ * @Author             : Nigel Hughes
+ * @Group              : 
+ * @Last Modified By   : Nigel Hughes
+ * @Last Modified On   : 19/05/2020, 10:24:48
+ * @Modification Log   : 
+ * Ver       Date            Author      		    Modification
+ * 1.0    19/05/2020   Nigel Hughes     Initial Version
+**/
+
 // Use .soql files to store SOQL queries.
 // You can execute queries in VS Code by selecting the
 //     query text and running the command:
 //     SFDX: Execute SOQL Query with Currently Selected Text
 
-SELECT Id, Name FROM Account;
+SELECT Id, Name FROM Account
+
+SELECT BillingAddress,BillingCity,BillingCountry,BillingPostalCode,BillingState,BillingStreet FROM Account
