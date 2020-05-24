@@ -6,6 +6,6 @@
     }
   ],
   "namespace": "",
-  "sfdcLoginUrl": "https://merv-dev-ed.my.salesforce.com/",
+  "sfdcLoginUrl": "https://test.salesforce.com/",
   "sourceApiVersion": "48.0"
 }

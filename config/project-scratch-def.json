@@ -1,6 +1,6 @@
 {
-  "orgName": "Merv Scratch Org",
+  "orgName": "Dev Scratch Org",
   "edition": "Developer",
-  "description": "Merv's current scratch org",
+  "description": "Current scratch org",
   "features": ["DebugApex"]
 }

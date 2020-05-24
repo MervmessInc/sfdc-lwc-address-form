@@ -3,6 +3,7 @@ import {ShowToastEvent} from "lightning/platformShowToastEvent";
 import getAddressData from "@salesforce/apex/AddressInputFormController.getAddressData";
 import getProvinceOptions from "@salesforce/apex/AddressInputFormController.getProvinceOptions";
 import getCountryOptions from "@salesforce/apex/AddressInputFormController.getCountryOptions";
+import saveAddressData from "@salesforce/apex/AddressInputFormController.saveAddressData";
 
 export default class AddressInputForm extends LightningElement {
 	@api recordId;
@@ -24,7 +25,7 @@ export default class AddressInputForm extends LightningElement {
 	hasData = false;
 	hasProvince = false;
 	_country;
-	readOnly = true;
+	readOnly = false;
 	
 	// initialize component
 	connectedCallback() {
@@ -120,6 +121,23 @@ export default class AddressInputForm extends LightningElement {
 
 	handleSave() {
 		console.log(JSON.stringify(this.addressData));
+
+		saveAddressData({objectType: this.objectApiName, objectId: this.recordId, address: this.addressData})
+			.then(result => {
+				console.log(JSON.stringify(result));
+			})
+			.catch(error => {
+				this.error = error;
+				console.log(JSON.stringify(error));
+				let message = "Unknown error";
+				this.dispatchEvent(
+					new ShowToastEvent({
+						title: "Error saving Address Data",
+						message,
+						variant: "error"
+					})
+				);
+			});
 	}
 
 	countryChange(event) {

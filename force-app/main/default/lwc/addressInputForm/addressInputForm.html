@@ -4,94 +4,106 @@
   @Author             : Nigel Hughes
   @Group              : 
   @Last Modified By   : Nigel Hughes
-  @Last Modified On   : 20/05/2020, 13:42:51
+  @Last Modified On   : 21/05/2020, 12:02:34
   @Modification Log   : 
   Ver       Date            Author      		    Modification
   1.0    14/05/2020   Nigel Hughes     Initial Version
 -->
 <template>
-	<lightning-layout>
-		<lightning-layout-item padding="around-small">
-			<lightning-button-icon icon-name="utility:edit_form" alternative-text="Edit" onclick={handleEdit}>
-			</lightning-button-icon>
-			<lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh" onclick={handleRefresh}>
-			</lightning-button-icon>
-			<lightning-button-icon icon-name="utility:save" alternative-text="Save" onclick={handleSave}>
-			</lightning-button-icon>
-		</lightning-layout-item>
-	</lightning-layout>
-	<template if:true={hasData}>
-		<!-- Read Only -->
-		<template if:true={readOnly}>
-			<lightning-layout>
-				<lightning-layout-item padding="around-small">
-					<h1 class="slds-text-heading_small">Address</h1>
-				</lightning-layout-item>
-				<lightning-layout-item padding="around-small">
-					<lightning-formatted-address
-						street={addressData.address1}
-						city={addressData.city}
-						country={addressData.country}
-						province={addressData.region}
-						postal-code={addressData.postalcode}
-						disabled
-					></lightning-formatted-address>
-				</lightning-layout-item>
-			</lightning-layout>
-		</template>
-		<!-- End Read Only -->
-		<template if:false={readOnly}>
-			<lightning-record-edit-form record-id={recordId} object-api-name={objectApiName}>
-				<lightning-layout>
-					<lightning-layout-item padding="horizontal-small">
-						<lightning-combobox
-							data-id="country"
-							label="Country"
-							options={countryOptions}
-							value={addressData.countryCode}
-							onchange={countryChange}
-						>
-						</lightning-combobox>
-					</lightning-layout-item>
-				</lightning-layout>
-				<lightning-layout>
-					<lightning-layout-item padding="horizontal-small" flexibility="auto">
-						<lightning-textarea data-id="address1" label="Address 1" value={addressData.address1} onchange={address1Change}></lightning-textarea>
-					</lightning-layout-item>
-				</lightning-layout>
-				<lightning-layout>
-					<lightning-layout-item padding="horizontal-small" size="8">
-						<lightning-input data-id="city" label="Address City" value={addressData.city} onchange={cityChange}> </lightning-input>
-					</lightning-layout-item>
-					<template if:true={hasProvince}>
-						<lightning-layout-item padding="horizontal-small" size="4">
-							<lightning-combobox
-								data-id="regioncode"
-								label="Address Region"
-								value={addressData.regionCode}
-								options={provinceOptions}
-								onchange={regioncodeChange}
-							>
-							</lightning-combobox>
-						</lightning-layout-item>
-					</template>
-					<template if:false={hasProvince}>
-						<lightning-layout-item padding="horizontal-small" size="4">
-							<lightning-input data-id="region" label="Address Region" value={addressData.region} onchange={regionChange}>
-							</lightning-input>
-						</lightning-layout-item>
-					</template>
-				</lightning-layout>
-				<lightning-layout>
-					<lightning-layout-item padding="horizontal-small" flexibility="auto">
-						<lightning-input data-id="postalcode" label="Address Postal Code" value={addressData.postalcode} onchange={postalcodeChange}>
-						</lightning-input>
-					</lightning-layout-item>
-				</lightning-layout>
-			</lightning-record-edit-form>
-		</template>
-	</template>
-	<template if:false={hasData}>
-		<h1 class="slds-text-heading_small">Loading</h1>
-	</template>
+  <lightning-layout>
+    <lightning-layout-item padding="around-small">
+      <lightning-button-icon icon-name="utility:edit_form" alternative-text="Edit" onclick={handleEdit}>
+      </lightning-button-icon>
+      <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh" onclick={handleRefresh}>
+      </lightning-button-icon>
+      <lightning-button-icon icon-name="utility:save" alternative-text="Save" onclick={handleSave}>
+      </lightning-button-icon>
+    </lightning-layout-item>
+  </lightning-layout>
+  <template if:true={hasData}>
+    <!-- Read Only -->
+    <template if:true={readOnly}>
+      <lightning-layout>
+        <lightning-layout-item padding="around-small">
+          <h1 class="slds-text-heading_small">Address</h1>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small">
+          <lightning-formatted-address street={addressData.address1} city={addressData.city}
+            country={addressData.country} province={addressData.region} postal-code={addressData.postalcode} disabled>
+          </lightning-formatted-address>
+        </lightning-layout-item>
+      </lightning-layout>
+    </template>
+    <!-- End Read Only -->
+    <template if:false={readOnly}>
+      <lightning-record-edit-form record-id={recordId} object-api-name={objectApiName}>
+        <lightning-layout>
+          <lightning-layout-item padding="horizontal-small">
+            <lightning-combobox 
+              data-id="country"
+              label="Country"
+              options={countryOptions}
+              value={addressData.countryCode} 
+              onchange={countryChange}>
+            </lightning-combobox>
+          </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+          <lightning-layout-item padding="horizontal-small" flexibility="auto">
+            <lightning-textarea 
+              data-id="address1"
+              label="Address 1"
+              value={addressData.address1}
+              onchange={address1Change}
+              max-length="255">
+            </lightning-textarea>
+          </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+          <lightning-layout-item padding="horizontal-small" size="8">
+            <lightning-input
+              data-id="city"
+              label="Address City"
+              value={addressData.city}
+              onchange={cityChange}>
+            </lightning-input>
+          </lightning-layout-item>
+          <template if:true={hasProvince}>
+            <lightning-layout-item padding="horizontal-small" size="4">
+              <lightning-combobox
+                data-id="regioncode"
+                label="Address Region"
+                value={addressData.regionCode}
+                options={provinceOptions}
+                onchange={regioncodeChange}>
+              </lightning-combobox>
+            </lightning-layout-item>
+          </template>
+          <template if:false={hasProvince}>
+            <lightning-layout-item padding="horizontal-small" size="4">
+              <lightning-input
+                data-id="region"
+                label="Address Region"
+                value={addressData.region}
+                onchange={regionChange}>
+              </lightning-input>
+            </lightning-layout-item>
+          </template>
+        </lightning-layout>
+        <lightning-layout>
+          <lightning-layout-item padding="horizontal-small" flexibility="auto">
+            <lightning-input
+              data-id="postalcode"
+              label="Address Postal Code"
+              value={addressData.postalcode}
+              onchange={postalcodeChange}>
+            </lightning-input>
+          </lightning-layout-item>
+        </lightning-layout>
+      </lightning-record-edit-form>
+    </template>
+  </template>
+  <template if:false={hasData}>
+    <h1 class="slds-text-heading_small">Loading</h1>
+  </template>
 </template>

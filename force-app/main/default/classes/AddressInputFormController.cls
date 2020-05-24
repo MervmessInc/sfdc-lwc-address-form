@@ -4,7 +4,7 @@
  * @Author             : Nigel Hughes
  * @Group              : 
  * @Last Modified By   : Nigel Hughes
- * @Last Modified On   : 20/05/2020, 15:04:23
+ * @Last Modified On   : 21/05/2020, 15:15:21
  * @Modification Log   : 
  * Ver       Date            Author      		    Modification
  * 1.0    14/05/2020   Nigel Hughes     Initial Version
@@ -129,4 +129,54 @@ public with sharing class AddressInputFormController {
 		return retVal;
 	}
 
+	private static string saveAcntAddress(Id objectId, AddressData address) {
+		
+		Account acnt = [
+			SELECT 
+			BillingCity,
+			BillingCountry,
+			BillingPostalCode,
+			BillingState,
+			BillingStreet 
+			FROM Account
+			WHERE Id = : objectId
+			WITH SECURITY_ENFORCED
+		];
+
+		if (Schema.sObjectType.Account.fields.BillingCity.isUpdateable()){
+			acnt.BillingCity = address.city;
+		}
+		if (Schema.sObjectType.Account.fields.BillingCountry.isUpdateable()){
+			acnt.BillingCountry = address.country;
+		}
+		if (Schema.sObjectType.Account.fields.BillingPostalCode.isUpdateable()){
+			acnt.BillingPostalCode = address.postalcode;
+		}
+		if (Schema.sObjectType.Account.fields.BillingState.isUpdateable()){
+			acnt.BillingState = address.region;
+		}
+		if (Schema.sObjectType.Account.fields.BillingStreet.isUpdateable()){
+			acnt.BillingStreet = address.address1;
+		}
+		
+		update acnt;
+
+
+		return 'Account Address Saved';
+	}
+
+	@AuraEnabled
+	public static string saveAddressData(String objectType, Id objectId, AddressData address){
+		system.debug(objectType);
+		system.debug(objectId);
+		system.debug(address);
+		
+		// In the real world use objectType & objectId to get the address 
+		
+		if(objectType == 'Account') {
+			return saveAcntAddress(objectId, address);
+		}
+
+		return 'It worked';
+	}
 }
