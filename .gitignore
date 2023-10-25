@@ -5,6 +5,7 @@
 # Salesforce cache
 .sfdx/
 .localdevserver/
+.sf/
 
 # LWC VSCode autocomplete
 **/lwc/jsconfig.json
@@ -44,3 +45,6 @@ force-app/main/default/lwc/.eslintrc.json
 SFDX_CMD.txt
 force-app/main/default/applications/Custom_Metadata_Loader.app-meta.xml
 force-app/main/default/applications/Custom_Metadata_Loader_Lightning.app-meta.xml
+
+# Project specific
+org_list.json
