@@ -37,7 +37,6 @@ $RECYCLE.BIN/
 
 # Extras
 .eslintignore
-.forceignore
 .prettierignore
 .prettierrc
 .history/
@@ -48,3 +47,4 @@ force-app/main/default/applications/Custom_Metadata_Loader_Lightning.app-meta.xm
 
 # Project specific
 org_list.json
+force-app/main/default/profiles/Admin.profile-meta.xml
