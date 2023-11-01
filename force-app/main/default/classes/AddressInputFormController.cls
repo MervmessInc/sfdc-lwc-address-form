@@ -41,14 +41,31 @@ public with sharing class AddressInputFormController {
 
 		List<Account> accounts = AccountsService.getBillingAddresses(new Set<Id>{objectId});
 		Account acnt = accounts[0];
+
+		String countryCode = '';
+		String regionCode = '';
+
+		try {
+			countryCode = AddressRegionService.countryToCode(acnt.BillingCountry);
+		} catch (Exception e) {
+			System.debug('ISO Code Lookup failed.');
+			countryCode = acnt.BillingCountry;
+		}
+
+		try {
+			regionCode = AddressRegionService.regionToCode(countryCode, acnt.BillingState);
+		} catch (Exception e) {
+			System.debug('Region Code Lookup failed.');
+			regionCode = acnt.BillingState;
+		}	
 		
 		address.address1 = acnt.BillingStreet;
 		address.city = acnt.BillingCity;
 		address.country = acnt.BillingCountry;
-		address.countryCode = AddressRegionUtils.countryToCode(acnt.BillingCountry);
+		address.countryCode = countryCode;
 		address.postalcode = acnt.BillingPostalCode;
 		address.region = acnt.BillingState;
-		address.regionCode = AddressRegionUtils.regionToCode(address.countryCode, address.region);
+		address.regionCode = regionCode;
 
 		return address;
 	}
