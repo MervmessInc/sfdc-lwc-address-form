@@ -1,13 +1,13 @@
-//AccountsSelector selector = AccountsSelector.newInstance();
-//List<Account> accounts = selector.selectById(new Set<Id>{'0012600002CxQC0AAN'});
-//System.debug(accounts);
 
 Set<Id> recordIds = new Set<Id>{'0012600002CxQC0AAN'};
+List<Account> accountRecords = [
+            SELECT Id, Name, BillingStreet, BillingCity, BillingState, BillingPostalCode, BillingCountry 
+            FROM Account 
+            WHERE Id IN :recordIds
+            WITH SECURITY_ENFORCED
+        ];
 
-List<Account> accountRecords = new List<Account>{
-   new Account(Name = 'Hello world!')
-};
+Accounts domain = new Accounts(accountRecords);
+system.debug(domain.getAccounts());
 
-IAccounts domain = Accounts.newInstance(accountRecords);
-//System.debug(iaccounts.getAccounts());
 

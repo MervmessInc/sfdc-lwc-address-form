@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Nigel Hughes
  * @group             : 
- * @last modified on  : 2023-11-01
+ * @last modified on  : 2023-11-03
  * @last modified by  : Nigel Hughes
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -28,14 +28,9 @@ public with sharing class AccountsService {
         }
         
         // Query accounts to get billing addresses
-        List<Account> accounts = [
-            SELECT Id, Name, BillingStreet, BillingCity, BillingState, BillingPostalCode, BillingCountry 
-            FROM Account 
-            WHERE Id IN :accountIds
-            WITH SECURITY_ENFORCED
-        ];        
+        AccountsSelector selector = new AccountsSelector();
+        return selector.selectBillingAddresses(accountIds);
 
-        return accounts;
     }
 
     public static void updateBillingAddresses(Map<Id, BillingAddress> accountBillingAddresses) {
@@ -51,7 +46,6 @@ public with sharing class AccountsService {
         );
         
         // Update accounts with billing addresses
-        List<Account> accounts = new List<Account>();
         List<Account> existingAccounts = getBillingAddresses(accountBillingAddresses.keySet());
 
         for(Account acnt: existingAccounts) {
