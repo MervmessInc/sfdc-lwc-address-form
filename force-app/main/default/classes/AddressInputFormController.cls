@@ -4,7 +4,7 @@
  * @Author             : Nigel Hughes
  * @Group              : 
  * @Last Modified By   : Nigel Hughes
- * @Last Modified On   : 21/05/2020, 15:15:21
+ * @Last Modified On   : 2023-11-01
  * @Modification Log   : 
  * Ver       Date            Author      		    Modification
  * 1.0    14/05/2020   Nigel Hughes     Initial Version
@@ -39,25 +39,33 @@ public with sharing class AddressInputFormController {
 	private static AddressData getAcntAddress(Id objectId) {
 		AddressData address = new AddressData();
 
-		Account acnt = [
-			SELECT 
-			BillingCity,
-			BillingCountry,
-			BillingPostalCode,
-			BillingState,
-			BillingStreet 
-			FROM Account
-			WHERE Id = : objectId
-			WITH SECURITY_ENFORCED
-		];
+		List<Account> accounts = AccountsService.getBillingAddresses(new Set<Id>{objectId});
+		Account acnt = accounts[0];
 
+		String countryCode = '';
+		String regionCode = '';
+
+		try {
+			countryCode = AddressRegionService.countryToCode(acnt.BillingCountry);
+		} catch (Exception e) {
+			System.debug('ISO Code Lookup failed.');
+			countryCode = acnt.BillingCountry;
+		}
+
+		try {
+			regionCode = AddressRegionService.regionToCode(countryCode, acnt.BillingState);
+		} catch (Exception e) {
+			System.debug('Region Code Lookup failed.');
+			regionCode = acnt.BillingState;
+		}	
+		
 		address.address1 = acnt.BillingStreet;
 		address.city = acnt.BillingCity;
 		address.country = acnt.BillingCountry;
-		address.countryCode = AddressRegionUtils.countryToCode(acnt.BillingCountry);
+		address.countryCode = countryCode;
 		address.postalcode = acnt.BillingPostalCode;
 		address.region = acnt.BillingState;
-		address.regionCode = AddressRegionUtils.regionToCode(address.countryCode, address.region);
+		address.regionCode = regionCode;
 
 		return address;
 	}
@@ -130,37 +138,19 @@ public with sharing class AddressInputFormController {
 	}
 
 	private static string saveAcntAddress(Id objectId, AddressData address) {
-		
-		Account acnt = [
-			SELECT 
-			BillingCity,
-			BillingCountry,
-			BillingPostalCode,
-			BillingState,
-			BillingStreet 
-			FROM Account
-			WHERE Id = : objectId
-			WITH SECURITY_ENFORCED
-		];
 
-		if (Schema.sObjectType.Account.fields.BillingCity.isUpdateable()){
-			acnt.BillingCity = address.city;
-		}
-		if (Schema.sObjectType.Account.fields.BillingCountry.isUpdateable()){
-			acnt.BillingCountry = address.country;
-		}
-		if (Schema.sObjectType.Account.fields.BillingPostalCode.isUpdateable()){
-			acnt.BillingPostalCode = address.postalcode;
-		}
-		if (Schema.sObjectType.Account.fields.BillingState.isUpdateable()){
-			acnt.BillingState = address.region;
-		}
-		if (Schema.sObjectType.Account.fields.BillingStreet.isUpdateable()){
-			acnt.BillingStreet = address.address1;
-		}
-		
-		update acnt;
+		AccountsService.BillingAddress billingAddress = new AccountsService.BillingAddress();
+		billingAddress.address1 = address.address1;
+		billingAddress.city = address.city;
+		billingAddress.country = address.country;
+		billingAddress.countryCode = address.countryCode;
+		billingAddress.postalCode = address.postalcode;
+		billingAddress.region = address.region;	
+		billingAddress.regionCode = address.regionCode;	
 
+		Map<Id, AccountsService.BillingAddress> accountBillingAddresses = new Map<Id, AccountsService.BillingAddress>();
+		accountBillingAddresses.put(objectId, billingAddress);
+		AccountsService.updateBillingAddresses(accountBillingAddresses);
 
 		return 'Account Address Saved';
 	}

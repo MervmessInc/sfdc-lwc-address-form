@@ -4,5 +4,27 @@
     "**/bower_components": true,
     "**/.sfdx": true
   },
-  "salesforcedx-vscode-core.show-cli-success-msg": false
+  "salesforcedx-vscode-core.show-cli-success-msg": false,
+  "SFDoc.DateFormat": "YYYY-MM-DD",
+  "SFDoc.FileHeaderProperties": [
+    {
+      "name": "description"
+    },
+    {
+      "name": "author",
+      "defaultValue": "$username"
+    },
+    {
+      "name": "group"
+    },
+    {
+      "name": "last modified on",
+      "defaultValue": "$date"
+    },
+    {
+      "name": "last modified by",
+      "defaultValue": "$username"
+    }
+  ],
+  "SFDoc.IncludeModificationLogScaffoldInFileHeader": true
 }

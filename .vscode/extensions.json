@@ -3,6 +3,19 @@
     "salesforce.salesforcedx-vscode",
     "redhat.vscode-xml",
     "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "salesforce.salesforcedx-vscode-apex",
+    "salesforce.salesforcedx-vscode-apex-debugger",
+    "financialforce.lana",
+    "chuckjonas.apex-pmd",
+    "salesforce.salesforcedx-vscode-apex-replay-debugger",
+    "salesforce.salesforcedx-vscode-lightning",
+    "salesforce.salesforcedx-vscode-lwc",
+    "mechatroner.rainbow-csv",
+    "salesforce.salesforcedx-vscode-core",
+    "salesforce.salesforcedx-vscode-expanded",
+    "salesforce.salesforce-vscode-slds",
+    "salesforce.salesforcedx-vscode-soql",
+    "salesforce.salesforcedx-vscode-visualforce"
   ]
 }
