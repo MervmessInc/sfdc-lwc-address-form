@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Nigel Hughes
  * @group             : 
- * @last modified on  : 2023-11-03
+ * @last modified on  : 2023-12-05
  * @last modified by  : Nigel Hughes
  * Modifications Log
  * Ver   Date         Author         Modification
@@ -24,10 +24,11 @@ public inherited sharing class Accounts extends fflib_SObjectDomain {
 		return (List<Account>) getRecords();
 	}
 
-    public override void onValidate() {
+    public override void onBeforeInsert() {
         
         // Validate Accounts
         for(Account acnt : (List<Account>) this.records) {
+
             if(acnt.BillingStreet == null || acnt.BillingStreet == '') {
                 acnt.BillingStreet.addError('Street is required');
             }
@@ -39,6 +40,22 @@ public inherited sharing class Accounts extends fflib_SObjectDomain {
             }
         }
 
+    }
+
+    public override void onBeforeUpdate(Map<Id, SObject> existingRecords) {
+        // Validate Accounts
+        for(Account acnt : (List<Account>) this.records) {
+
+            if(acnt.BillingStreet == null || acnt.BillingStreet == '') {
+                acnt.BillingStreet.addError('Street is required');
+            }
+            if(acnt.BillingCity == null || acnt.BillingCity == '') {
+                acnt.BillingCity.addError('City is required');
+            }
+            if(acnt.BillingCountry == null || acnt.BillingCountry == '') {
+                acnt.BillingCountry.addError('Country is required');
+            }
+        }
     }
 
 }
