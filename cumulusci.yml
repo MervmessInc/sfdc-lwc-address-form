@@ -1,0 +1,19 @@
+minimum_cumulusci_version: '3.83.0'
+project:
+    name: sfdc-lwc-address-form
+    package:
+        name: sfdc-lwc-address-form
+        api_version: '59.0'
+    git:
+        default_branch: 'use-fflib'
+    source_format: sfdx
+
+tasks:
+
+    account_faker:
+        description: Create fake account data
+        class_path: cumulusci.tasks.bulkdata.snowfakery.Snowfakery
+        options:
+            recipe: datasets/fake_account.yml
+            run_until_records_in_org: Account:500
+
