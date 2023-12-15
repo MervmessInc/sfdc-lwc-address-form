@@ -263,11 +263,17 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.BillingAddress</fieldItem>
+                <identifier>RecordBillingAddressField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-54adad94-a75c-4a7a-8c51-93d7b3ef048c</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <name>Facet-b8bcce3e-7aac-44b6-afa0-2679e95a00c7</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -279,16 +285,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:column</componentName>
                 <identifier>flexipage_column5</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-b8bcce3e-7aac-44b6-afa0-2679e95a00c7</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column6</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-f04a9f57-509f-4fd7-a25f-512181bc89dc</name>
@@ -391,12 +387,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentName>addressInputForm</componentName>
-                <identifier>c_addressInputForm</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
