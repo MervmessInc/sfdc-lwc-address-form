@@ -1,0 +1,60 @@
+# fake_account.yml is a dataset that generates fake account data for Salesforce.
+#
+- plugin: snowfakery.standard_plugins.Salesforce.SalesforceQuery
+
+- var: snowfakery_locale
+  value: en_GB
+
+- object: Account
+  count: 5
+  fields:
+    Name:
+      fake: Company
+    AccountNumber: ${{fake.RandomNumber(digits=15, fix_len=False)}}
+    Description:
+      fake: CatchPhrase
+    Phone:
+      fake: PhoneNumber
+    Industry:
+      random_choice:
+        - Agriculture
+        - Apparel
+        - Banking
+        - Biotechnology
+        - Chemicals
+        - Communications
+        - Construction
+        - Consulting
+        - Education
+        - Electronics
+        - Energy
+        - Engineering
+        - Entertainment
+        - Environmental
+        - Finance
+        - Food & Beverage
+        - Government
+        - Healthcare
+        - Hospitality
+        - Insurance
+        - Machinery
+        - Manufacturing
+        - Media
+        - Not For Profit
+        - Recreation
+        - Retail
+        - Shipping
+        - Technology
+        - Telecommunications
+        - Transportation
+        - Utilities
+        - Other
+    BillingStreet:
+      fake: StreetAddress
+    BillingCity:
+      fake: City
+    BillingState:
+      fake: State
+    BillingPostalCode:
+      fake: PostalCode
+    BillingCountry: 'United Kingdom'
